@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% load static %} {% block title %} My Blog {% endblock title %} {% block
+content %} {% block css_files %} <link rel='stylesheet' href='{% static 'index.css' %}' />
+<section id="welcome">
+    <header>
+        <img src="{% static 'images/max.png' %}" alt="Pico" />
+        <h2>Pico's blog content</h2>
+    </header>
+    <p>Hi, this is Luran Pico's blog site.</p>
+</section>
+<section id="latest-posts">
+    <h2>Newest</h2>
+    <ul>
+        {% for post in newests %} {% include 'blog/includes/post.html' %} {% endfor %}
+    </ul>
+</section>
+<section id="about">
+    <h2>About me</h2>
+    <p>Luran Pico is an VGC player.</p>
+    <p>Goal is ranked.</p>
+</section>
+{% endblock %}

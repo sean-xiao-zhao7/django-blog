@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% load static %} {% block title %} My posts {% endblock title %} {% block
+content %} {% block css_files %} <link rel='stylesheet' href='{% static 'posts.css' %}' />
+
+<section id="all-posts">
+    <h2>My posts</h2>
+    <ul>
+        {% for post in postsData %} {% include 'blog/includes/post.html' %} {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}
