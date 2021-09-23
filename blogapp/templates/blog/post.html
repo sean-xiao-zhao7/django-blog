@@ -3,14 +3,50 @@
 {% block content %}
 <section id="summary">
     <h2>{{post.title}}</h2>
+    <div>
+    {% if read_later %}
+        <p>Marked as read later</p>
+    {% else %}
+        <form action='{% url 'read-laters' post.slug %}' method='POST'>
+        {% csrf_token %}
+        <input type='hidden' name='post_id' value='{{post.id}}' />
+        <button>Read later</button>
+        </form>
+    {% endif %}
+    </div>
     <article>
-        <img src="{% static 'images/'|add:post.image %}" alt="{{post.title}}" />
+        <img src="{{ post.image.url }}" alt="{{post.title}}" />
         <address><a href=''>{{post.author}}</a></address>
         <div>Last updated on <time>{{post.date|date:"d M Y"}}</time></div>
     </article>
 </section>
-
-<main>
-    <p>{{post.content|linebreaks}}</p>
+<main>    
+    <p>{{post.content|linebreaks}}</p>    
 </main>
+<section id='comments'>
+    <h1>Comments</h1>
+    <ul>
+    {% for comment in comments %}
+        <li>
+            <h3>{{ comment.user }}</h3>
+            <p>
+                {{ comment.text|linebreaks }}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
+</section>
+<div>
+    <form id='comment-form' action='{% url 'post-details' post.slug %}' method='POST'>
+        {% csrf_token %}
+        {% for field in comment_form %}
+            <div class='form-control'>
+                {{ field.label_tag }}        
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}    
+        <button>Add new comment</button>
+    </form>
+</div>
 {% endblock %}

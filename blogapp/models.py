@@ -20,5 +20,13 @@ class Post(models.Model):
     content = models.TextField(validators=[MinLengthValidator(10)])    
     tags = models.ManyToManyField(Tag, related_name='tags')
     slug = models.SlugField(unique=True)
-    image = models.CharField(max_length=100, null=True, blank=True)
+    image = models.ImageField(upload_to='posts', null=True)
+
+class Comment(models.Model):
+    user = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    text = models.TextField(max_length=1000)
+    post = models.ForeignKey(Post, on_delete=CASCADE, related_name='comments')
+
+
     

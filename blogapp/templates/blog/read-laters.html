@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Read laters
+{% endblock %}
+
+{% block content %}
+
+    <ul>
+        {% for read_later in read_laters %}
+            <li>
+                {{read_later.title}}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
